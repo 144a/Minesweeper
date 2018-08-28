@@ -102,15 +102,27 @@ void draw() {
   if(isFlagged == true && field_cleared[cursorYpos][cursorXpos] == 0) {
     field_cleared[cursorYpos][cursorXpos] = -1;
     isFlagged = false;
+    // Adds current curosr position to arraylists
+    curFlagX.add(cursorXpos);
+    curFlagY.add(cursorYpos);
   } else if(isFlagged == true && field_cleared[cursorYpos][cursorXpos] == -1) {
     field_cleared[cursorYpos][cursorXpos] = 0;
     isFlagged = false;
+    // Removes the current square from the flag arraylist
+    for(int i = curFlagX.size() - 1; i >= 0; i++) {
+      if(curFlagX.get(i) == cursorXpos && curFlagY.get(i) == cursorYpos) {
+        curFlagX.remove(i);
+        curFlagY.remove(i);
+      }
+    } 
   }
   
   // Checks for a revealed mine and then runs end game sequence if it finds one
   if(field[cursorYpos][cursorXpos] == -1 && field_cleared[cursorYpos][cursorXpos] == 1) {
       endGame();
   }
+  
+  
   
   // Looks for any key presses and updates cursor
   if(keypress == true && !(field[cursorYpos][cursorXpos] == -1 && field_cleared[cursorYpos][cursorXpos] == 1)) {
@@ -174,12 +186,25 @@ void draw() {
 
 // Checks to see if the current flagged sqaures match up with the sqaures with mines
 void checkFlag() {
-  
-  
-  
-  
-  
-  
+  boolean correct = false;
+  // Checks to see if both flag arraylists have the same number of elements
+  // They cannot match if this condition is not met
+  if(curFlagX.size() == finFlag.size()) {
+  boolean found = false;
+    for(int i = 0; i < curFlag.size(); i++) {
+      for(int j = 0; j < finFlag.size(); j++) {
+        if(curFlagX.get(0) == finFlagX.get(0) && curFlagY.get(0) == finFlagY.get(0)) {
+          found = true;
+        }
+      }
+      if(found == false) { 
+        correct = false;
+      }
+    }
+  }
+  if(correct == true) {
+    endGame();
+  }
 }
   
 
@@ -309,6 +334,9 @@ void fieldGen(int n) {
     if(field[x][y] == -1) {
       count--;
     } else {
+      // Adds mine postion to final flag arraylist
+      finFlagX.add(y);
+      finFlagY.add(x);
       // Adds 1 to every cell around it, excluding cells that dont exist (ex. x = -1)
       field[x][y] = -1;
       if(x != 0) {
