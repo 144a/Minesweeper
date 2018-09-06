@@ -189,10 +189,10 @@ void checkFlag() {
   boolean correct = false;
   // Checks to see if both flag arraylists have the same number of elements
   // They cannot match if this condition is not met
-  if(curFlagX.size() == finFlag.size()) {
+  if(curFlagX.size() == finFlagX.size()) {
   boolean found = false;
-    for(int i = 0; i < curFlag.size(); i++) {
-      for(int j = 0; j < finFlag.size(); j++) {
+    for(int i = 0; i < curFlagX.size(); i++) {
+      for(int j = 0; j < finFlagX.size(); j++) {
         if(curFlagX.get(0) == finFlagX.get(0) && curFlagY.get(0) == finFlagY.get(0)) {
           found = true;
         }
