@@ -5,7 +5,7 @@
 // since I had my Dad's work laptop and it had a processing ide installed.
 //
 // To play, make changes to the game settings to customize the game
-// Use the arrow keys to move the cursor, and the q and r keys for revealing and flagging squares respectively
+// Use the arrow keys to move the cursor, and the q and w keys for revealing and flagging squares respectively
 
 
 // Change to edit game settings
