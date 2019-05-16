@@ -109,7 +109,7 @@ void draw() {
     field_cleared[cursorYpos][cursorXpos] = 0;
     isFlagged = false;
     // Removes the current square from the flag arraylist
-    for(int i = curFlagX.size() - 1; i >= 0; i++) {
+    for(int i = curFlagX.size() - 1; i >= 0; i--) {
       if(curFlagX.get(i) == cursorXpos && curFlagY.get(i) == cursorYpos) {
         curFlagX.remove(i);
         curFlagY.remove(i);
