@@ -5,22 +5,22 @@
 // since I had my Dad's work laptop and it had a processing ide installed.
 //
 // To play, make changes to the game settings to customize the game
-// Use the arrow keys to move the cursor, and the q and w keys for revealing and flagging squares respectively
+// Use the arrow keys to move the cursor, and the q and r keys for revealing and flagging squares respectively
 
 
 // Change to edit game settings
-final int FIELD_WIDTH = 20;
-final int FIELD_HIEGHT = 20;
-final int MINES_NUM = 35;
+final int FIELD_WIDTH = 90;
+final int FIELD_HIEGHT = 60;
+final int MINES_NUM = 400;
 
 // Changes scale of grid
-final int scale = 3;
+final int scale = 1;
 
 boolean refreshGrid = true;
 
 // Creates arrays for both current board state and table of values
-int[][] field = new int [FIELD_WIDTH][FIELD_HIEGHT];
-int[][] field_cleared = new int [FIELD_WIDTH][FIELD_HIEGHT];
+int[][] field = new int [FIELD_HIEGHT][FIELD_WIDTH];
+int[][] field_cleared = new int [FIELD_HIEGHT][FIELD_WIDTH];
 
 // Font data for drawing numbers
 // Don't bother trying to change this unless you really want to
@@ -56,7 +56,7 @@ void setup() {
   background(0);
   surface.setSize(10 * scale * FIELD_WIDTH + 1, 10 * scale * FIELD_HIEGHT + 1);
   
-  stroke(255);
+  stroke(190,20,0);
   fieldGen(MINES_NUM);
   
 }
@@ -135,7 +135,7 @@ void draw() {
     
     
     // Creates white background for numbers and flag icon
-    stroke(255);
+    stroke(190,20,0);
     for(int y = 1; y < 10 * scale; y++) {
       line(cursorXpos * 10 * scale, cursorYpos * 10 * scale + y, (cursorXpos + 1) * 10 * scale, cursorYpos * 10 * scale + y);
     }
@@ -327,47 +327,48 @@ void fieldGen(int n) {
   
   while(count < n) {
     // Generate a random position on the field
-    x = int(random(0, FIELD_WIDTH));
     y = int(random(0, FIELD_HIEGHT));
+    x = int(random(0, FIELD_WIDTH));
     
-    // Checks to see whether there is already a mine there
-    if(field[x][y] == -1) {
+    // Checks to see whether there is alreadx a mine there
+    if(field[y][x] == -1) {
       count--;
     } else {
-      // Adds mine postion to final flag arraylist
-      finFlagX.add(y);
+      // Adds mine postion to final flag arraxlist
       finFlagY.add(x);
-      // Adds 1 to every cell around it, excluding cells that dont exist (ex. x = -1)
-      field[x][y] = -1;
-      if(x != 0) {
-        if(field[x - 1][y] != -1) {
-          field[x - 1][y]++;
+      finFlagX.add(y);
+      // Adds 1 to everx cell around it, eycluding cells that dont eyist (ey. y = -1)
+      field[y][x] = -1;
+      if(y != 0) {
+        if(field[y - 1][x] != -1) {
+          field[y - 1][x]++;
         }
-        if(y != 0 && field[x - 1][y - 1] != -1) {
-          field[x - 1][y - 1]++;
+        if(x != 0 && field[y - 1][x - 1] != -1) {
+          field[y - 1][x - 1]++;
         }
-        if(y != FIELD_HIEGHT - 1 && field[x - 1][y + 1] != -1) {
-          field[x - 1][y + 1]++;
-        }
-      }
-      if(x != FIELD_WIDTH - 1) {
-        if(field[x + 1][y] != -1) {
-          field[x + 1][y]++;
-        }
-        if(y != 0 && field[x + 1][y - 1] != -1) {
-          field[x + 1][y - 1]++;
-        }
-        if(y != FIELD_HIEGHT - 1 && field[x + 1][y + 1] != -1) {
-          field[x + 1][y + 1]++;
+        if(x != FIELD_WIDTH - 1 && field[y - 1][x + 1] != -1) {
+          field[y - 1][x + 1]++;
         }
       }
-      if(y != 0 && field[x][y - 1] != -1) {
-        field[x][y - 1]++;
+      if(y != FIELD_HIEGHT - 1) {
+        if(field[y + 1][x] != -1) {
+          field[y + 1][x]++;
+        }
+        if(x != 0 && field[y + 1][x - 1] != -1) {
+          field[y + 1][x - 1]++;
+        }
+        if(x != FIELD_WIDTH - 1 && field[y + 1][x + 1] != -1) {
+          field[y + 1][x + 1]++;
+        }
       }
-      if(y != FIELD_HIEGHT - 1 && field[x][y + 1] != -1) {
-        field[x][y + 1]++;
+      if(x != 0 && field[y][x - 1] != -1) {
+        field[y][x - 1]++;
+      }
+      if(x != FIELD_WIDTH - 1 && field[y][x + 1] != -1) {
+        field[y][x + 1]++;
       }
     }
+
     
     count++;
   }
